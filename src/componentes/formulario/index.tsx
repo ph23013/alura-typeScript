@@ -3,6 +3,8 @@ import Botao from "../botao";
 import style from "./formulario.module.scss"
 import { iTarefa } from "../../types/tarefa";
 
+
+
 class Formulario extends React.Component <{setTarefas: React.Dispatch<React.SetStateAction<iTarefa[]>>
 }>{
     state = {
@@ -11,8 +13,21 @@ class Formulario extends React.Component <{setTarefas: React.Dispatch<React.SetS
     }
     adicionarTarefa(evento: React.FormEvent <HTMLFormElement>) {
         evento.preventDefault();
-        this.props.setTarefas (tarefasAntigas => [...tarefasAntigas, {...this.state}] )
-        
+        this.props.setTarefas (tarefasAntigas => 
+            [
+                ...tarefasAntigas, 
+                {
+                    ...this.state,
+                    selecionado: false,
+                    completado: false,
+                    id: crypto.randomUUID() 
+                }
+            ] 
+            );
+        this.setState({
+            tarefa: "",
+            tempo: "00:00"
+        })
     }
     render() {
         return(
