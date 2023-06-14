@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { tempoParaSegundos } from "../../common/utils/time"
 import { iTarefa } from "../../types/tarefa"
 import Botao from "../botao"
@@ -11,10 +11,11 @@ interface props {
 
 export default function Cronometro({selecionado}: props) {
     const [tempo, setTempo] = useState<number>();
-        if(selecionado?.tempo) {
-            setTempo(tempoParaSegundos(selecionado.tempo));
-        }
-
+     useEffect(() => {
+        if(selecionado?.tempo)
+        setTempo(tempoParaSegundos(selecionado.tempo))
+     },[selecionado])
+    
     return(
         <div className={style.cronometro}>
             <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
